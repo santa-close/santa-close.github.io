@@ -9,17 +9,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          path: main
-          ref: main
-
       - name: Checkout server repo
         uses: actions/checkout@v3
         with:
           repository: santa-close/santa-close-server
-          path: server
           ref: main
           
       - name: Setup node.js
@@ -28,12 +21,21 @@ jobs:
           cache: 'yarn'
           
       - name: Generate introspection
-        working-directory: ./server
         run: |
           yarn
           yarn generate
-          cp ./introspection.json ../main/
-        
-      - name: Echo 
-        working-directory: ./main
-        run: cat introspeciton.json
+
+      - name: Checkout main repo
+        uses: actions/checkout@v3
+        with:
+          path: main-repo
+          ref: main
+          
+      - name: Commit introspection.json
+        working-directory: ./main-repo
+        run: |
+          cp ../introspection.json .
+          git add introspection.json
+          git commit -m "update introspection"
+          git push
+          
