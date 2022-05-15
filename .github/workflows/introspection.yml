@@ -1,0 +1,12 @@
+name: Update graphql introspection
+
+on:
+  repository_dispatch:
+    types: [ schema ]
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: echo generate
