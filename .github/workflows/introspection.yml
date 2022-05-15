@@ -9,4 +9,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - run: echo generate
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: main
+
+      - name: Checkout server repo
+        uses: actions/checkout@v3
+        with:
+          repository: santa-close/santa-closer-server
+          path: server
+          
+      - name: Setup node.js
+      - uses: actions/setup-node@v3
+        with:
+          cache: 'yarn'
+          
+      - name: Generate introspection
+        working-directory: ./server
+        run: |
+          yarn
+          yarn generate
+          cp ./introspection.json ../main/
+        
+      - name: Echo 
+        working-directory: ./main
+        run: cat introspeciton.json
