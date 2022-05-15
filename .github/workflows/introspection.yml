@@ -20,8 +20,11 @@ jobs:
         with:
           cache: 'yarn'
           
+      - name: Install dependencies
+        run: yarn install
+          
       - name: Generate introspection
-        run: yarn && yarn run generate
+        run: yarn generate
 
       - name: Checkout main repo
         uses: actions/checkout@v3
