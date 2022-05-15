@@ -3,9 +3,12 @@ name: Update graphql introspection
 on:
   repository_dispatch:
     types: [ schema ]
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  demo:
+  schema:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,9 +25,11 @@ jobs:
           
       - name: Install dependencies
         run: yarn install
+        
+      - run: cat package.json
           
       - name: Generate introspection
-        run: yarn generate
+        run: yarn run generate
 
       - name: Checkout main repo
         uses: actions/checkout@v3
