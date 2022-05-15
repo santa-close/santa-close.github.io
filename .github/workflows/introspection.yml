@@ -3,9 +3,6 @@ name: Update graphql introspection
 on:
   repository_dispatch:
     types: [ schema ]
-  pull_request:
-    branches:
-      - main
 
 jobs:
   schema:
@@ -37,6 +34,7 @@ jobs:
 
       - name: Commit introspection.json
         working-directory: ./main-repo
+        continue-on-error: true
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
