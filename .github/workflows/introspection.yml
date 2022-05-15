@@ -13,12 +13,14 @@ jobs:
         uses: actions/checkout@v3
         with:
           path: main
+          ref: main
 
       - name: Checkout server repo
         uses: actions/checkout@v3
         with:
-          repository: santa-close/santa-closer-server
+          repository: santa-close/santa-close-server
           path: server
+          ref: main
           
       - name: Setup node.js
         uses: actions/setup-node@v3
