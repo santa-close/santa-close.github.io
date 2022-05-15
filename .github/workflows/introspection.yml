@@ -21,7 +21,7 @@ jobs:
           path: server
           
       - name: Setup node.js
-      - uses: actions/setup-node@v3
+        uses: actions/setup-node@v3
         with:
           cache: 'yarn'
           
