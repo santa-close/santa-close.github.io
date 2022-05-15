@@ -17,17 +17,15 @@ jobs:
         with:
           repository: santa-close/santa-close-server
           ref: main
-          
+
       - name: Setup node.js
         uses: actions/setup-node@v3
         with:
           cache: 'yarn'
-          
+
       - name: Install dependencies
         run: yarn install
-        
-      - run: cat package.json
-          
+
       - name: Generate introspection
         run: yarn run generate
 
@@ -36,12 +34,13 @@ jobs:
         with:
           path: main-repo
           ref: main
-          
+
       - name: Commit introspection.json
         working-directory: ./main-repo
         run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           cp ../introspection.json .
           git add introspection.json
           git commit -m "update introspection"
           git push
-          
